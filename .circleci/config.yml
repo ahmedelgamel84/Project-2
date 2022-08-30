@@ -60,10 +60,10 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - create_infrastructure_network
+      #- create_infrastructure_network
       - create_infrastructure_server: 
-          requires: 
-            - create_infrastructure_network
+          #requires: 
+           # - create_infrastructure_network
       - configure_infrastructure:
           requires: 
             - create_infrastructure_server 

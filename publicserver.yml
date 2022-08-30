@@ -18,7 +18,7 @@ Resources:
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
-          SubnetId: subnet-0f13e337fdd537696
+          SubnetId: subnet-020e3050b85f432bb
           GroupSet:
             - Ref: WebAccessSecGroup
       UserData:
