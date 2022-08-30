@@ -64,7 +64,7 @@ workflows:
       #- create_infrastructure_server 
           #requires: 
            # - create_infrastructure_network
-      - configure_infrastructure:
+      - configure_infrastructure
           #requires: 
             #- create_infrastructure_server 
     
