@@ -1,0 +1,58 @@
+Description: Ahmed Elgamel Project
+
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+    Default: My-Env
+
+  AMItoUse:
+      Description: AMI to use for as base image
+      Type: String
+      Default: ami-052efd3df9dad4825
+
+Resources:
+  PublicServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          SubnetId: subnet-0f13e337fdd537696
+          GroupSet:
+            - Ref: WebAccessSecGroup
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo apt-get update
+          sudo apt-get install apache2 -y
+          sudo systemctl start apache2
+          sudo chmod 777 /var/www/html -R
+          sudo echo '<h1>It works! Udagram, Udacity</h1>' > /var/www/html/index.html          
+      ImageId: ami-052efd3df9dad4825
+      InstanceType: t2.micro
+      KeyName: newkey1
+      Tags:
+        -
+          Key: Project
+          Value:  Project:udacity
+
+  WebAccessSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Allow http and https to our test host
+        VpcId:
+          Fn::ImportValue:
+            !Sub "${EnvironmentName}-VPCID"
+        SecurityGroupIngress:
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+        SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+
+  
