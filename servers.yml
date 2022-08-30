@@ -9,9 +9,11 @@ Parameters:
   AMItoUse:
       Description: AMI to use for as base image
       Type: String
-      Default: ami-0729e439b6769d6ab
+      Default: ami-052efd3df9dad4825
 
 Resources:
+
+  
 
   WebAccessSecGroup:
     Type: AWS::EC2::SecurityGroup
@@ -92,14 +94,14 @@ Resources:
           sudo systemctl start apache2
           sudo chmod 777 /var/www/html -R
           sudo echo '<h1>It works! Udagram, Udacity</h1>' > /var/www/html/index.html          
-      ImageId: ami-0729e439b6769d6ab
+      ImageId: ami-052efd3df9dad4825
       SecurityGroups:
       - Ref: WebAccessSecGroup
-      InstanceType: t3.small
+      InstanceType: t2.micro
       BlockDeviceMappings:
       - DeviceName: "/dev/sda1"
         Ebs:
-          VolumeSize: '10'
+          VolumeSize: '8'
           VolumeType: gp2
 
   WebAppGroup:
@@ -110,7 +112,7 @@ Resources:
           !Sub "${EnvironmentName}-PRIV-NETS"
       LaunchConfigurationName:
         Ref: WebAppLaunchConfig
-      MinSize: '2'
+      MinSize: '1'
       MaxSize: '4'
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
