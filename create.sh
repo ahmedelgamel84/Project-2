@@ -1,0 +1,1 @@
+aws cloudformation create-stack --stack-name publicserver --template-body file://publicserver.yml
