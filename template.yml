@@ -18,7 +18,9 @@ Resources:
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
-          SubnetId: subnet-0f13e337fdd537696
+          SubnetId: 
+            Fn::ImportValue:
+              !Sub "${EnvironmentName}-PUB1-SN"
           GroupSet:
             - Ref: WebAccessSecGroup
       UserData:
