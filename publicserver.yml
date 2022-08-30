@@ -31,7 +31,7 @@ Resources:
           sudo echo '<h1>It works! Udagram, Udacity</h1>' > /var/www/html/index.html          
       ImageId: ami-052efd3df9dad4825
       InstanceType: t2.micro
-      KeyName: newkey1
+      KeyName: newkey2
       Tags:
         -
           Key: Project
