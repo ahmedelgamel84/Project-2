@@ -18,7 +18,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
-  create_infrastructure_server:
+  create_infrastructure_network:
     docker:
       - image:  amazon/aws-cli
 
@@ -29,7 +29,7 @@ jobs:
           command: aws cloudformation deploy --template-file network.yml --stack-name myStack-Net-${CIRCLE_WORKFLOW_ID:0:5}  --region us-east-1
 
 
-  create_infrastructure_network:
+  create_infrastructure_server:
     docker:
       - image:  amazon/aws-cli
 
