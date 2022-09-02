@@ -40,7 +40,7 @@ jobs:
           command: aws cloudformation deploy  --template-file template.yml --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}  --region us-east-1
       - run:
           name: "Inventroy"
-          command: aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory
+          command: aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory --region us-east-1
 
   configure_infrastructure:
     docker:
@@ -60,11 +60,11 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      #- create_infrastructure_network
-      #- create_infrastructure_server 
-          #requires: 
-           # - create_infrastructure_network
+      - create_infrastructure_network
+      - create_infrastructure_server :
+          requires: 
+            - create_infrastructure_network
       - configure_infrastructure
-          #requires: 
-            #- create_infrastructure_server 
+          requires: 
+            - create_infrastructure_server 
     
